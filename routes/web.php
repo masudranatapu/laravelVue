@@ -17,7 +17,7 @@ use App\Http\Controllers\Backend\DashboardController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');

@@ -1,97 +1,141 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<!DOCTYPE html>
+
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
-    <!-- Fonts -->
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <!-- Scripts -->
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="{{ asset('backend/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{ asset('backend/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('backend/dist/css/adminlte.min.css') }}">
-    @vite('resources/js/app.js')
+    <title>MRT Application</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper" id="app">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                        <i class="fas fa-search"></i>
+                    </a>
+                    <div class="navbar-search-block">
+                        <form class="form-inline">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control form-control-navbar" type="search" placeholder="Search"
+                                    aria-label="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-navbar" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                        <i class="fas fa-times"></i>
+                                    </button>
                                 </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+            </ul>
         </nav>
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <a href="index3.html" class="brand-link">
+                <img src="https://adminlte.io/themes/v3/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+                    class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">MRT</span>
+            </a>
+            <div class="sidebar">
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg"
+                            class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">Masud Rana Tapu</a>
+                    </div>
+                </div>
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <li class="nav-item">
+                            <router-link to="/admin/dashboard" active-class="active" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/admin/appointment" active-class="active" class="nav-link">
+                                <i class="nav-icon far fa-calendar-alt"></i>
+                                <p>
+                                    Appointment
+                                </p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/admin/users" active-class="active" class="nav-link">
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>
+                                    Users
+                                </p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/admin/settings" active-class="active" class="nav-link">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>
+                                    Settings
+                                </p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/admin/profile" active-class="active" class="nav-link">
+                                <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Profile
+                                </p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/admin/dashboard" class="nav-link">
+                                <i class="nav-icon fas fa-sign-out-alt"></i>
+                                <p>
+                                    Logout
+                                </p>
+                            </router-link>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <div class="content-wrapper">
+            <router-view></router-view>
+        </div>
+        <footer class="main-footer">
+            <div class="float-right d-none d-sm-inline">
+                Build Your Career On IT Sector
+            </div>
+            <strong>
+                Develop by
+                <a target="__blank" href="https://www.facebook.com/masudranatapu11">
+                    Masud Rana Tapu
+                </a>.
+            </strong>
+            All rights reserved.
+        </footer>
     </div>
-    <!-- jQuery -->
-    <script src="{{ asset('backend/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap -->
-    <script src="{{ asset('backend/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- overlayScrollbars -->
-    <script src="{{ asset('backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('backend/dist/js/adminlte.js') }}"></script>
 </body>
 
 </html>

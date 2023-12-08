@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\ApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +14,8 @@ use App\Http\Controllers\Backend\DashboardController;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
-
-Auth::routes(['register' => false]);
-
-Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth']], function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('index');
+Route::get('/', function () {
+    return view('welcome');
 });
+
+Route::get('{view}', ApplicationController::class)->where('view', '(.*)');

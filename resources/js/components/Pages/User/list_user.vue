@@ -1,3 +1,22 @@
+<script setup>
+  import axios from "axios";
+  import { ref, onMounted } from "vue";
+
+  const users = ref([]);
+
+  const geUsers = () => {
+      axios.get('/user/list').then((response) => {
+          users.value = response.data.data;
+      });
+  }
+
+  onMounted(() => {
+    geUsers();
+  });
+
+
+</script>
+
 <template>
   <div class="content-header">
     <div class="container-fluid">
@@ -36,13 +55,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th>1</th>
-                    <td>Masud Rana</td>
-                    <td>masudranatapu@gmail.com</td>
-                    <td>01478523690</td>
-                    <td>Dhaka, Bangladesh</td>
-                    <td>12, Dec 2023</td>
+                  <tr v-for="(user, index) in users" :key="user.id">
+                    <th>{{ index + 1 }}</th>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.address }}</td>
+                    <td>{{ user.address }}</td>
+                    <td>{{ user.address }}</td>
                     <td>
                         <div class="btn-group">
                           <a class="btn btn-primary btn-sm">

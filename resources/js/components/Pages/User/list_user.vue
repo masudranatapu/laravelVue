@@ -1,13 +1,26 @@
 <script setup>
   import axios from "axios";
-  import { ref, onMounted } from "vue";
+  import { ref, onMounted , reactive} from "vue";
 
   const users = ref([]);
+  const form = reactive({
+    name : '',
+    email : '',
+    phone : '',
+    password : '',
+    address : ''
+  });
+
 
   const geUsers = () => {
       axios.get('/user/list').then((response) => {
           users.value = response.data.data;
       });
+  }
+  const createNewUser = () => {
+    axios.post('user/store', form).then((response) => {
+        console.log(form);
+    });
   }
 
   onMounted(() => {
@@ -41,6 +54,11 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="card">
+            <div class="card-header">
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#createUser">
+                    Create New User
+                </button>
+            </div>
             <div class="card-body">
               <table class="table table-bordered">
                 <thead>
@@ -81,4 +99,43 @@
       </div>
     </div>
   </div>
+
+    <div class="modal fade" id="createUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create New User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input v-model="form.name" type="text" name="name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="email" v-model="form.email" name="email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Phone</label>
+                        <input v-model="form.phone" type="text" name="phone" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Address</label>
+                        <input v-model="form.address" type="text" name="address" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input v-model="form.password" type="text" name="password" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" @click="createNewUser" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>

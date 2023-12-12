@@ -20,6 +20,6 @@ Route::get('/', function () {
 });
 
 Route::get('/user/list', [UserController::class, 'index']);
-Route::get('/user/store', [UserController::class, 'store']);
+Route::post('/user/store', [UserController::class, 'store']);
 
 Route::get('{view}', ApplicationController::class)->where('view', '(.*)');

@@ -3,6 +3,7 @@
   import { ref, onMounted , reactive} from "vue";
 
   const users = ref([]);
+
   const form = reactive({
     name : '',
     email : '',
@@ -11,15 +12,14 @@
     address : ''
   });
 
-
   const geUsers = () => {
       axios.get('/user/list').then((response) => {
           users.value = response.data.data;
       });
   }
   const createNewUser = () => {
-    axios.post('user/store', form).then((response) => {
-        console.log(form);
+    axios.post('/user/store', form).then((response) => {
+        console.log(response);
     });
   }
 
@@ -128,7 +128,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Password</label>
-                        <input v-model="form.password" type="text" name="password" class="form-control">
+                        <input v-model="form.password" type="password" name="password" class="form-control">
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -23,7 +23,7 @@ class UserController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'type' => 'Error',
-                // 'massage'=> $e->getMassage(),
+                'massage' => $e->getMessage(),
             ]);
         }
     }
@@ -32,25 +32,25 @@ class UserController extends Controller
     {
         try {
             DB::beginTransaction();
-                $users = new User();
-                $users->name = $request->name;
-                $users->email = $request->email;
-                $users->password = Hash::make($request->password);
-                $users->phone = $request->phone;
-                $users->address = $request->address;
-                $users->save();
+            $users = new User();
+            $users->name = $request->name;
+            $users->email = $request->email;
+            $users->password = Hash::make($request->password);
+            $users->phone = $request->phone;
+            $users->address = $request->address;
+            $users->save();
             DB::commit();
 
             return response()->json([
                 'type' => 'Success',
-                'massage'=> 'User successfully created',
+                'massage' => 'User successfully created',
+                'data' => $users,
             ]);
-
         } catch (Exception $e) {
             DB::rollback();
             return response()->json([
                 'type' => 'Error',
-                'massage'=> $th->getMassage(),
+                'massage' => $e->getMessage(),
             ]);
         }
     }

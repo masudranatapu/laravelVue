@@ -19,7 +19,17 @@
   }
   const createNewUser = () => {
     axios.post('/user/store', form).then((response) => {
-        console.log(response);
+        console.log(response.data.type);
+        if(response.data.type == 'Success') {
+            form.name = '',
+            form.email = '',
+            form.phone = '',
+            form.password = '',
+            form.address = '',
+            $("#createUser").modal('hide');
+        }else {
+            console.log(response.massage);
+        }
     });
   }
 
@@ -112,23 +122,23 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="">Name</label>
-                        <input v-model="form.name" type="text" name="name" class="form-control">
+                        <input v-model="form.name" type="text" name="name" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="">Email</label>
-                        <input type="email" v-model="form.email" name="email" class="form-control">
+                        <input type="email" v-model="form.email" name="email" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="">Phone</label>
-                        <input v-model="form.phone" type="text" name="phone" class="form-control">
+                        <input v-model="form.phone" type="text" name="phone" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="">Address</label>
-                        <input v-model="form.address" type="text" name="address" class="form-control">
+                        <input v-model="form.address" type="text" name="address" class="form-control" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="">Password</label>
-                        <input v-model="form.password" type="password" name="password" class="form-control">
+                        <input v-model="form.password" type="password" name="password" class="form-control" autocomplete="off">
                     </div>
                 </div>
                 <div class="modal-footer">
